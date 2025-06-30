@@ -44,6 +44,11 @@ function runGame(gameType) {
         displayMultiplyQuestion(num1, num2);
     } else if (gameType === "subtract") {
         displaySubtractQuestion(num1, num2); 
+    } else if (gameType === "division") {
+    // Create a clean division problem
+        num2 = Math.floor(Math.random() * 12) + 1; // divisor between 1 and 12
+        let num1 = num2 * (Math.floor(Math.random() * 12) + 1); // dividend = divisor * random number
+        displayDivisionQuestion(num1, num2);
     } else {
         alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting!`;
@@ -89,6 +94,12 @@ function calculateCorrectAnswer() {
         return [operand1 * operand2, "multiply"];
     } else if (operator === "-") {
         return [operand1 - operand2, "subtract"];   
+    } else  if (operator === "/") {
+        // Ensure the second operand is not zero to avoid division by zero
+        if (operand2 === 0) {
+            operand2 = 1; // Set to 1 to avoid division by zero
+        }
+        return [operand1 / operand2, "division"];
     } else {
         alert(`Unimplemented operator ${operator}`);
         throw `Unimplemented operator ${operator}. Aborting!`;
@@ -137,5 +148,13 @@ function displayMultiplyQuestion(operand1, operand2) {
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = "x";
+
+}
+
+function displayDivisionQuestion(operand1, operand2) {
+
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "/";
 
 }
